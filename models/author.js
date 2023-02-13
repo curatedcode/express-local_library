@@ -26,13 +26,13 @@ AuthorSchema.virtual("name").get(function () {
 });
 
 AuthorSchema.virtual("date_of_birth_formatted").get(function () {
-  if(this.date_of_birth === undefined)  return "Unknown"
+  if(this.date_of_birth === undefined || this.date_of_birth === null)  return "Unknown"
   
   return DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED);
 });
 
 AuthorSchema.virtual("date_of_death_formatted").get(function () {
-  if(this.date_of_death === undefined) {
+  if(this.date_of_death === undefined || this.date_of_death === null) {
     if(this.date_of_birth === undefined){
       return "Unknown"
     } else {
