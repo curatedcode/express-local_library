@@ -11,8 +11,11 @@ const catalogRouter = require('./routes/catalog')
 const Mongo_URL = require('./Mongo_URL')
 
 const compression = require('compression')
+const helmet = require('helmet')
 
 var app = express();
+
+app.use(helmet())
 
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
