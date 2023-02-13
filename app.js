@@ -8,8 +8,17 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const wikiRouter = require('./routes/wiki')
 const catalogRouter = require('./routes/catalog')
+const Mongo_URL = require('./Mongo_URL')
 
 var app = express();
+
+const mongoose = require('mongoose')
+mongoose.set('strictQuery', false)
+
+main().catch(err => console.log(err))
+async function main(){
+  await mongoose.connect(Mongo_URL)
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
