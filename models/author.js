@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const { DateTime } = require('luxon')
+
 const AuthorSchema = new Schema({
   first_name: { type: String, required: true, maxLength: 100 },
   family_name: { type: String, required: true, maxLength: 100 },
@@ -21,6 +23,24 @@ AuthorSchema.virtual("name").get(function () {
     fullname = "";
   }
   return fullname;
+});
+
+AuthorSchema.virtual("date_of_birth_formatted").get(function () {
+  if(this.date_of_birth === undefined)  return "Unknown"
+  
+  return DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED);
+});
+
+AuthorSchema.virtual("date_of_death_formatted").get(function () {
+  if(this.date_of_death === undefined) {
+    if(this.date_of_birth === undefined){
+      return "Unknown"
+    } else {
+      return "Current"
+    }
+  }
+
+  return DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED);
 });
 
 // Virtual for author's URL
