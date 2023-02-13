@@ -10,6 +10,8 @@ const wikiRouter = require('./routes/wiki')
 const catalogRouter = require('./routes/catalog')
 const Mongo_URL = require('./Mongo_URL')
 
+const compression = require('compression')
+
 var app = express();
 
 const mongoose = require('mongoose')
@@ -29,6 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(compression())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
